@@ -1,0 +1,20 @@
+# tunn3l_v1s1on
+Desc: We found this file. Recover the flag.
+Hint: Weird that it won't display right
+
+Process: 
+A file was linked which I downloaded.
+No file extension was visible, which is normally so thinking that it is a text file, opened it and saw garbage text. But first saw BM which is meant for BITMAP so got an idea that it is an img file but somehow corrupted because not opening normally….like an image. 
+
+
+Installed exiftool to get more information on the image. 
+Exiftool - for reading , writing, and manipulating image, audio, video and pdf metadata. 
+So on terminal, ran the command to find more about the metadata and got a list of it. BMP was confirmed
+Installed a Hex editor to view the contents better and edit it. 
+Hex Editor : Read through the hex editor 
+We opened the file and read through it. It is a bitmap file as it starts with BM. 
+Now we open other bitmap file and compare the values. On comparing the values, we get the difference which is then corrected. This corrected is then saved and we can see a faulty pico flag. 
+We now run the exiftool and notice the size of the image, for sucha small image, the size should not be so big and even the dimensions of the image is not appropriate. So now we change the dimensions of the file. We change some value in the hex editor by first knowing the dimensions of the file in hex so we convert the numbers to hex and search for it in the hex editor. 
+We found that the numbers at the DIB header are wrong and other things as well
+DIB: DIB header (bitmap info header) this block of bytes tells the application detailed information about the image, which will be useful to display the image on the screen. The block also matches the header used internally by windows and os/2 and has several different variants
+Changing the “ba do” of the DIB header num-butes to 28 00 and changing the 32 01 of the number of bits per pixel to 40 03 does the trick and we get the proper image.
